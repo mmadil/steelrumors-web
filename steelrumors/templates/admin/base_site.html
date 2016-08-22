@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %}
+
+{% block extrastyle %}{% endblock %}
+{% block extrahead %}{% endblock %}
+{% block title %}{{ title }} | steelrumors{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">steelrumors administration</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
