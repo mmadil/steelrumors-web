@@ -7,6 +7,7 @@ from __future__ import print_function, unicode_literals
 
 # Third Party Stuff
 import environ
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 ROOT_DIR = environ.Path(__file__) - 2  # (/a/b/myfile.py - 2 = /a/)
@@ -30,6 +31,7 @@ INSTALLED_APPS = (
 
     'steelrumors.base',
     'steelrumors.users',
+    'steelrumors.links',
 
     'rest_framework',  # http://www.django-rest-framework.org/
     'versatileimagefield',  # https://github.com/WGBH/django-versatileimagefield/
@@ -42,6 +44,7 @@ INSTALLED_APPS = (
 # ------------------------------------------------------------------------------
 AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+LOGIN_REDIRECT_URL = reverse_lazy('home')
 
 # For Exposing browsable api urls. By default urls won't be exposed.
 API_DEBUG = env.bool('API_DEBUG', default=False)

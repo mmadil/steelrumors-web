@@ -15,7 +15,7 @@ from steelrumors.base.models import UUIDModel
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, username, password, is_staff, is_superuser, **extra_fields):
         """Creates and saves a User with the given email and password.
         """
         email = self.normalize_email(email)
@@ -25,15 +25,16 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password, False, False, **extra_fields)
+    def create_user(self, email, username, password=None, **extra_fields):
+        return self._create_user(email, username, password, False, False, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, True, True, **extra_fields)
+    def create_superuser(self, email, username, password, **extra_fields):
+        return self._create_user(email, username, password, True, True, **extra_fields)
 
 
 @python_2_unicode_compatible
 class User(AbstractBaseUser, UUIDModel, PermissionsMixin):
+    username = models.CharField(_('username'), max_length=30)
     first_name = models.CharField(_('First Name'), max_length=120, blank=True)
     last_name = models.CharField(_('Last Name'), max_length=120, blank=True)
     email = models.EmailField(_('email address'), unique=True, db_index=True)
@@ -44,8 +45,10 @@ class User(AbstractBaseUser, UUIDModel, PermissionsMixin):
                                     help_text='Designates whether this user should be treated as '
                                               'active. Unselect this instead of deleting accounts.')
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    bio = models.TextField(_('bio data'), blank=True)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
     objects = UserManager()
 
     class Meta:

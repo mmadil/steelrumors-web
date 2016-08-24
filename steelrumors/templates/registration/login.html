@@ -1,0 +1,16 @@
+{% extends "pages/__base.html" %}
+
+{% block content %}
+<h2>Login</h2>
+
+<form method="post" action=".">
+  {% csrf_token %}
+  {% include "_errors.html" %}
+  {% for field in form %}
+  {% include "_fields.html" %}
+  {% endfor %}
+  <input type="submit" value="login" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

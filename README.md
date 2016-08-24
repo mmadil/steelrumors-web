@@ -1,17 +1,25 @@
 steelrumors
 ==============================
 
-__Version:__ 0.0.0
+This project contains further enhancements on top of [Building a Hacker News clone in Django][arocks-post] by [Arun Ravindran][github-source]
 
-Add a short project description here.
+[arocks-post]: http://arunrocks.com/building-a-hacker-news-clone-in-django-part-1/
+[github-source]:https://github.com/arocks/steel-rumors
 
-## Getting up and running
+### Stack
 
-Minimum requirements: **pip, fabric & [postgres][install-postgres]**, setup is tested on Mac OSX only.
+- Python 3
+- Django 1.10
+- Postgresql
+
+
+## Installation
+
+Minimum requirements: **pip, fabric3 & [postgres][install-postgres]**, setup is tested on Mac OSX only.
 
 ```
 brew install postgres
-[sudo] pip install fabric
+[sudo] pip install fabric3
 ```
 
 [install-postgres]: http://www.gotealeaf.com/blog/how-to-install-postgresql-on-a-mac
@@ -20,47 +28,34 @@ In your terminal, type or copy-paste the following:
 
     git clone git@github.com:mmadil/steelrumors-web.git; cd steelrumors-web; fab init
 
-Go grab a cup of coffee, we bake your hot development machine.
+Go grab a cup of coffee until we bake your hot development machine.
 
 Useful commands:
 
 - `fab serve` - start [django server](http://localhost:8000/)
-- `fab deploy_docs` - deploy docs to server
-- `fab test` - run the test locally with ipdb
 
 **NOTE:** Checkout `fabfile.py` for all the options available and what/how they do it.
 
+## Feature and Requirements
 
-## Deploying Project
+- [x] User authentication via custom user model.
+- [x] Users can manage their profile information.
+- [x] Users can post links.
+- [ ] Add fixtures with data migrations for initial data.
+- [ ] Users can vote links using AJAX.
+- [ ] Add tests.
+- [ ] Use Django REST Framework with AngularJS.
+- [ ] Refactor.
 
-The deployment are managed via travis, but for the first time you'll need to set the configuration values on each of the server.
 
-Check out detailed server setup instruction [here](docs/backend/server_config.md).
+## License
 
-## How to release steelrumors
+MIT License
 
-Execute the following commands:
+Copyright (c) 2016 Mohammad Adil
 
-```
-git checkout master
-fab test
-bumpversion release
-bumpversion --no-tag patch # 'patch' can be replaced with 'minor' or 'major'
-git push origin master
-git push origin master --tags
-git checkout qa
-git rebase master
-git push origin qa
-```
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-## Contributing
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Golden Rule:
-
-> Anything in **master** is always **deployable**.
-
-Avoid working on `master` branch, create a new branch with meaningful name, send pull request asap. Be vocal!
-
-Refer to [CONTRIBUTING.md][contributing]
-
-[contributing]: http://github.com/mmadil/steelrumors-web/tree/master/CONTRIBUTING.md
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

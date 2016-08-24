@@ -1,0 +1,16 @@
+{% extends "pages/__base.html" %}
+
+{% block content %}
+<h2><a href="{{ object.url }}">{{ object.title }}</a></h2>
+{% if object.submitter == user %}
+<a href="{% url 'link_update' pk=object.pk %}">Edit</a> |
+<a href="{% url 'link_delete' pk=object.pk %}">Delete</a>
+{% endif %}
+
+<p>Submitted by <a href="{% url 'profile' username=object.submitter.username %}">{{ object.submitter.username }}</a></p>
+
+<div class="desc">
+  {{ object.description }}
+</div>
+
+{% endblock %}

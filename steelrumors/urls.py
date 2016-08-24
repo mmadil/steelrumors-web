@@ -13,10 +13,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as dj_default_views
 from django.views.generic import TemplateView
-
+from registration.backends.simple.views import RegistrationView
 # steelrumors Stuff
 from steelrumors.base import views as base_views
-
+from steelrumors.links.views import LinkListView, LinkDetailView, LinkCreateView, LinkUpdateView, LinkDeleteView
+from steelrumors.users.forms import CustomUserRegistrationForm
+from steelrumors.users.views import UserProfileDetailView, UserProfileUpdateView
 from .routers import router
 
 handler500 = base_views.server_error
@@ -24,9 +26,19 @@ handler500 = base_views.server_error
 # Top Level Pages
 # ==============================================================================
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name="home"),
+    url(r'^$', LinkListView.as_view(), name="home"),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
-    # Your stuff: custom urls go here
+
+    # accounts
+    url(r'^accounts/register/$', RegistrationView.as_view(form_class=CustomUserRegistrationForm), name='register'),
+    url(r'^accounts/profile/(?P<username>\w+)/$', UserProfileDetailView.as_view(), name='profile'),
+    url(r'^accounts/edit/$', UserProfileUpdateView.as_view(), name='edit_profile'),
+
+    # links
+    url(r'^link/create/$', LinkCreateView.as_view(), name='link_create'),
+    url(r'^link/(?P<pk>\d+)/$', LinkDetailView.as_view(), name='link_detail'),
+    url(r'^link/update/(?P<pk>\d+)/$', LinkUpdateView.as_view(), name='link_update'),
+    url(r'^link/delete/(?P<pk>\d+)/$', LinkDeleteView.as_view(), name='link_delete'),
 ]
 
 urlpatterns += [
@@ -42,6 +54,9 @@ urlpatterns += [
 
     # Django Admin
     url(r'^{}/'.format(settings.DJANGO_ADMIN_URL), include(admin.site.urls)),
+
+    # Django Registration
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -30,8 +30,6 @@ env.requirements_file = join(HERE, 'requirements/development.txt')
 env.shell = "/bin/bash -l -i -c"
 
 
-
-
 def init(vagrant=False):
     """Prepare a local machine for development."""
 

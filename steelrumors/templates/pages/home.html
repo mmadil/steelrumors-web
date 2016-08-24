@@ -1,9 +1,28 @@
-{% extends 'pages/base.html' %}
+{% extends 'pages/__base.html' %}
 {% load i18n %}
 {% block title %}{% trans 'Home' %} • {{ block.super }}{% endblock title %}
 {% block body_classes %}{{ block.super}} page-home {% endblock body_classes %}
+
 {% block content %}
-    <p>
-        {% trans 'Homepage comming soon!!' %}
-    </p>
+{% if is_paginated %}
+<ol start="{{ page_obj.start_index }}">
+{% else %}
+<ol>
+{% endif %}
+ {% for link in object_list %}
+ <li>[{{ link.votes }}]
+ <a href="{% url 'link_detail' pk=link.pk %}">
+   <strong>{{ link.title }}</strong>
+ </a>
+ </li>
+ {% endfor %}
+</ol>
+{% if is_paginated %}
+<div class="pagination">
+ {% if page_obj.has_next %}
+ <a href="?page={{ page_obj.next_page_number }}">More &raquo;</a>
+ {% endif %}
+</div>
+{% endif %}
+
 {% endblock content %}

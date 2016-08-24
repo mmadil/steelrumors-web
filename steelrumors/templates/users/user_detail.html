@@ -1,0 +1,15 @@
+{% extends "pages/__base.html" %}
+
+{% block content %}
+<h2> {{ userprofile.username }}'s Profile</h2>
+{% if userprofile.get_full_name %} <b>Name:</b> {{ userprofile.get_full_name }} {% endif %}
+{% if userprofile.bio %}
+<div>
+<b>Bio:</b>
+{{ userprofile.bio }}
+</div>
+{% endif %}
+{% if userprofile.username == user.username %}
+<p><a href="{% url 'edit_profile' %}">Edit Profile</a></p>
+{% endif %}
+{% endblock %}
