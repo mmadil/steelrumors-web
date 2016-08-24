@@ -31,8 +31,8 @@ class UserAdmin(AuthUserAdmin):
     add_form_template = 'admin/auth/user/add_form.html'
     model = User
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name',)}),
+        (None, {'fields': ('email', 'password', 'username')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'bio')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser',
                                     'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),

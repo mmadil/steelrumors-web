@@ -41,7 +41,6 @@ Useful commands:
 - [x] User authentication via custom user model.
 - [x] Users can manage their profile information.
 - [x] Users can post links.
-- [ ] Add fixtures with data migrations for initial data.
 - [ ] Users can vote links using AJAX.
 - [ ] Add tests.
 - [ ] Use Django REST Framework with AngularJS.
