@@ -1,6 +1,6 @@
 # Core Stuff
 # -------------------------------------
-Django==1.9.8
+Django==1.10
 gunicorn==19.6.0
 
 # Configuration
