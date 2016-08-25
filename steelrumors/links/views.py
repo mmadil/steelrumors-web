@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 
 from .models import Link, Vote
 from .forms import LinkForm, VoteForm
@@ -87,6 +87,7 @@ class VoteFormBaseView(FormView):
     def form_invalid(self, form):
         ret = {'success': 0, 'form_errors': form.errors}
         return self.create_response(ret, False)
+
 
 class VoteFormView(JSONResposeMixin, VoteFormBaseView):
     pass

@@ -6,6 +6,7 @@ from .models import Link
 
 logger = get_task_logger(__name__)
 
+
 # periodic task to run every 15 mins
 @periodic_task(run_every=(crontab(minute='*/15')), name='rank all', ignore_result=True)
 def rank_all():

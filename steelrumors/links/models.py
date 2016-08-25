@@ -32,8 +32,8 @@ class Link(models.Model):
 
         delta = now() - self.submitted_on
         item_hour_age = delta.total_seconds() // SEC_IN_HOUR
-        votes = self.votes -1
-        self.rank_score = votes / pow((item_hour_age+2),GRAVITY)
+        votes = self.votes - 1
+        self.rank_score = votes / pow((item_hour_age+2), GRAVITY)
         self.save()
 
     def __str__(self):
