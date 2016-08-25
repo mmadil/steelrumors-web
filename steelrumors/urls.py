@@ -17,6 +17,7 @@ from registration.backends.simple.views import RegistrationView
 # steelrumors Stuff
 from steelrumors.base import views as base_views
 from steelrumors.links.views import LinkListView, LinkDetailView, LinkCreateView, LinkUpdateView, LinkDeleteView
+from steelrumors.links.views import VoteFormView
 from steelrumors.users.forms import CustomUserRegistrationForm
 from steelrumors.users.views import UserProfileDetailView, UserProfileUpdateView
 from .routers import router
@@ -39,6 +40,9 @@ urlpatterns = [
     url(r'^link/(?P<pk>\d+)/$', LinkDetailView.as_view(), name='link_detail'),
     url(r'^link/update/(?P<pk>\d+)/$', LinkUpdateView.as_view(), name='link_update'),
     url(r'^link/delete/(?P<pk>\d+)/$', LinkDeleteView.as_view(), name='link_delete'),
+
+    # votes
+    url(r'^vote/$', VoteFormView.as_view(), name="vote"),
 ]
 
 urlpatterns += [

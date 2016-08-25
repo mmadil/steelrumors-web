@@ -2,27 +2,36 @@
 {% load i18n %}
 {% block title %}{% trans 'Home' %} • {{ block.super }}{% endblock title %}
 {% block body_classes %}{{ block.super}} page-home {% endblock body_classes %}
-
 {% block content %}
 {% if is_paginated %}
 <ol start="{{ page_obj.start_index }}">
-{% else %}
-<ol>
-{% endif %}
- {% for link in object_list %}
- <li>[{{ link.votes }}]
- <a href="{% url 'link_detail' pk=link.pk %}">
-   <strong>{{ link.title }}</strong>
- </a>
- </li>
- {% endfor %}
-</ol>
-{% if is_paginated %}
-<div class="pagination">
- {% if page_obj.has_next %}
- <a href="?page={{ page_obj.next_page_number }}">More &raquo;</a>
- {% endif %}
-</div>
-{% endif %}
-
-{% endblock content %}
+  {% else %}
+  <ol>
+    {% endif %}
+    {% for link in object_list %}
+    <form method="post" action="{% url 'vote' %}" class="vote_form">
+      <li>[{{ link.votes }}]
+      {% csrf_token %}
+      <input type="hidden" id="id_link" name="link" class="hidden_id" value="{{ link.pk }}">
+      <input type="hidden" id="id_voter" name="voter" class="hidden_id" value="{{ user.pk }}">
+      {% if not user.is_authenticated %}
+      <button disabled title="Please login to vote">+</button>
+      {% elif link.pk not in voted %}
+      <button>+</button>
+      {% else %}
+      <button>-</button>
+      {% endif %}
+        <a href="{% url 'link_detail' pk=link.pk %}">
+          <strong>{{ link.title }}</strong>
+        </a>
+      </li>
+    </form>
+    {% endfor %}
+  </ol>
+  {% if is_paginated %}
+  <div class="pagination">
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">More &raquo;</a> {% endif %}
+  </div>
+  {% endif %}
+  {% endblock content %}

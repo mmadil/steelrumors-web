@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -24,6 +25,16 @@ class Link(models.Model):
 
     def get_absolute_url(self):
         return reverse('link_detail', kwargs={'pk': str(self.id)})
+
+    def set_rank(self):
+        SEC_IN_HOUR = float(60*60)
+        GRAVITY = 1.2
+
+        delta = now() - self.submitted_on
+        item_hour_age = delta.total_seconds() // SEC_IN_HOUR
+        votes = self.votes -1
+        self.rank_score = votes / pow((item_hour_age+2),GRAVITY)
+        self.save()
 
     def __str__(self):
         return self.title
