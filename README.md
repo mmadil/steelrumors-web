@@ -11,6 +11,7 @@ This project contains further enhancements on top of [Building a Hacker News clo
 - Python 3
 - Django 1.10
 - Postgresql
+- Redis
 
 
 ## Installation
@@ -42,6 +43,7 @@ Useful commands:
 - [x] Users can manage their profile information.
 - [x] Users can post links.
 - [x] Users can vote links using AJAX.
+- [x] Background tasks are handled by Celery and Redis.
 - [ ] Add tests.
 - [ ] Refactor.
 

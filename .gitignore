@@ -68,6 +68,7 @@ node_modules/
 
 # Celery
 celerybeat-schedule
+celerybeat.pid
 
 # Vagrant
 .vagrant

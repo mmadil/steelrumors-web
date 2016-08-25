@@ -1,6 +1,8 @@
 # Core Stuff
 # -------------------------------------
 Django==1.10
+celery==3.1.23
+redis==2.10.5
 gunicorn==19.6.0
 
 # Configuration
