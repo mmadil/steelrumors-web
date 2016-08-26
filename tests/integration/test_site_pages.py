@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 # Third Party Stuff
+import pytest
 from django.core.urlresolvers import reverse
 
 
@@ -13,12 +14,11 @@ def test_root_txt_files(client):
         assert response.status_code == 200
         assert response['Content-Type'] == 'text/plain'
 
-
+@pytest.mark.django_db
 def test_landing_pages(client):
-    # Test that these urls are rendered properly and doesn't required authorization
     urls = [
         '/about/',
-        '/',
+        '/', # uses user.is_authenticated and it will access db.
     ]
     for url in urls:
         response = client.get(url)
